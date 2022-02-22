@@ -7,10 +7,10 @@
 set -e
 
 cd base
-docker buildx build --platform linux/arm64 -t reg.nosadnile.net/workspace-images/base --push .
+docker buildx build --platform linux/arm64,linux/amd64 -t reg.git.nosadnile.net:443/redstonewizard08/workspace-images/base --push .
 
 cd ../openvscode
-docker buildx build --platform linux/arm64 -t reg.nosadnile.net/workspace-images/openvscode --push .
+docker buildx build --platform linux/arm64,linux/amd64 -t reg.git.nosadnile.net:443/redstonewizard08/workspace-images/openvscode --push .
 
 cd ../codeserver
-docker buildx build --platform linux/arm64 -t reg.nosadnile.net/workspace-images/codeserver --push .
+docker buildx build --platform linux/arm64 -t reg.git.nosadnile.net:443/redstonewizard08/workspace-images/codeserver --push .
