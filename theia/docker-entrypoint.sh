@@ -1,11 +1,9 @@
 #!/bin/sh
 
-export OPENVSCODE_VERSION="1.64.2"
-export ARCH=`dpkg --print-architecture`
-
-case $ARCH in
-    "amd64") export ARCH="x64" ;;
-    *) esac
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+source $HOME/.bashrc
 
 cd /workspace
 
@@ -16,4 +14,4 @@ else
     echo "Not cloning repo."
 fi
 
-/ide/openvscode-server-v$OPENVSCODE_VERSION-linux-$ARCH/bin/openvscode-server --without-connection-token --host 0.0.0.0 --port 8088
+nvm exec 12 node /ide/src-gen/backend/main.js /workspace --hostname 0.0.0.0 --port 8088
