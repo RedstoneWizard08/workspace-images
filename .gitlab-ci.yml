@@ -1,0 +1,31 @@
+docker-build:
+  image: docker:stable
+  stage: build
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    #DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:dind
+  before_script:
+  - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u "$CI_REGISTRY_USER" --password-stdin
+  script:
+    - |
+      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
+        tag=""
+        echo "Running on default branch '$CI_DEFAULT_BRANCH': tag = 'latest'"
+      else
+        tag=":$CI_COMMIT_REF_SLUG"
+        echo "Running on branch '$CI_COMMIT_BRANCH': tag = $tag"
+      fi
+    - mkdir -p $HOME/.docker/cli-plugins
+    - wget https://github.com/docker/buildx/releases/download/v0.7.1/buildx-v0.7.1.linux-arm64 -O $HOME/.docker/cli-plugins/docker-buildx
+    - chmod a+rwx $HOME/.docker/cli-plugins/docker-buildx
+    - docker buildx create --name $CI_COMMIT_REF_SLUG
+    - docker buildx inspect $CI_COMMIT_REF_SLUG --bootstrap
+    - docker buildx use $CI_COMMIT_REF_SLUG
+    - docker buildx build --push -t $CI_REGISTRY_IMAGE${tag} .
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      exists:
+        - Dockerfile
