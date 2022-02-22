@@ -16,14 +16,17 @@ RUN curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh |
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" && \
     source $HOME/.bashrc && \
     nvm install 14 && \
-    nvm use 14 && \
+    nvm install 16 && \
+    nvm use 16 && \
     source $HOME/.bashrc && \
-    npm install --global npm@latest yarn@latest && \
-    corepack enable && \
-    cd /ide && \
-    yarn install
-    #nvm install 16 && \
-    #nvm use 16
+    nvm exec 14 npm install --global npm@latest yarn@latest && \
+    nvm exec 14 corepack enable && \
+    export ARCH=`dpkg --print-architecture` && \
+    case $ARCH in \
+    "armhf") export ARCH="armv7l" ;; \
+    *) esac && \
+    cd /ide/code-server-$CODE_SERVER_VERSION-linux-$ARCH && \
+    nvm exec 14 yarn install
 
 # Entrypoint
 COPY docker-entrypoint.sh /docker-entrypoint.sh
