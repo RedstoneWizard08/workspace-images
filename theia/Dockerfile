@@ -47,7 +47,7 @@ RUN apt-get clean && \
     rm -rf /tmp/*
 
 # IDE
-FROM reg.nosadnile.net/workspace-images/base
+FROM reg.git.nosadnile.net:443/redstonewizard08/workspace-images/base:devel
 
 # Theia
 COPY --from=builder /ide /ide

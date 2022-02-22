@@ -1,4 +1,4 @@
-FROM reg.nosadnile.net/workspace-images/base
+FROM reg.git.nosadnile.net:443/redstonewizard08/workspace-images/base:devel
 
 # OpenVSCode
 ENV CODE_SERVER_VERSION="4.0.2"
