@@ -1,3 +1,6 @@
+# Tag
+ARG TAG=devel
+
 # Builder
 FROM ubuntu:20.04 as builder
 
@@ -46,8 +49,8 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
 
-# IDE
-FROM reg.git.nosadnile.net:443/redstonewizard08/workspace-images/base:devel
+# Base OS
+FROM reg.git.nosadnile.net:443/redstonewizard08/workspace-images/base:${TAG}
 
 # Theia
 COPY --from=builder /ide /ide
@@ -55,7 +58,8 @@ COPY --from=builder /ide /ide
 # Entrypoint
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
-RUN sudo apt-get -y install libsecret-1-dev
+RUN sudo apt-get update && \
+    sudo apt-get -y install libsecret-1-dev
 
 RUN sudo chmod a+rx /docker-entrypoint.sh && \
     curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && \

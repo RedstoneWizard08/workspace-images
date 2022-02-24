@@ -12,7 +12,7 @@ RUN apt-get update && \
     apt-get -y upgrade && \
     apt-get -y install \
     curl wget sudo bash apt \
-    apt-utils git tzdata
+    apt-utils git tzdata xz-utils
 
 # Bash
 SHELL [ "/bin/bash", "-c" ]
@@ -51,3 +51,10 @@ RUN curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh |
 RUN curl -fsSL https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash && \
     sudo apt-get -y install git-lfs && \
     git lfs install --system
+
+# Clean
+RUN sudo apt-get clean && \
+    sudo apt-get autoremove -y && \
+    sudo rm -rf /var/cache/apt/* && \
+    sudo rm -rf /var/lib/apt/lists/* && \
+    sudo rm -rf /tmp/*

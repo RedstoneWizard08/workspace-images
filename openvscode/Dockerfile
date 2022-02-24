@@ -1,4 +1,6 @@
-FROM reg.git.nosadnile.net:443/redstonewizard08/workspace-images/base:devel
+# Base OS
+ARG TAG=devel
+FROM reg.git.nosadnile.net:443/redstonewizard08/workspace-images/base:${TAG}
 
 # OpenVSCode
 ENV OPENVSCODE_VERSION="1.64.2"

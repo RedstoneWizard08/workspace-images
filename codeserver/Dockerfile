@@ -1,6 +1,8 @@
-FROM reg.git.nosadnile.net:443/redstonewizard08/workspace-images/base:devel
+# Base OS
+ARG TAG=devel
+FROM reg.git.nosadnile.net:443/redstonewizard08/workspace-images/base:${TAG}
 
-# OpenVSCode
+# Code Server
 ENV CODE_SERVER_VERSION="4.0.2"
 RUN export ARCH=`dpkg --print-architecture` && \
     case $ARCH in \
@@ -10,6 +12,7 @@ RUN export ARCH=`dpkg --print-architecture` && \
     tar -C "/ide" -zxvf "code-server-${CODE_SERVER_VERSION}-linux-${ARCH}.tar.gz" && \
     rm "code-server-${CODE_SERVER_VERSION}-linux-${ARCH}.tar.gz"
 
+# Node deps
 RUN curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && \
     export NVM_DIR="$HOME/.nvm" && \
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && \
