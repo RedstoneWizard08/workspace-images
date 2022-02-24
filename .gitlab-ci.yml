@@ -27,12 +27,10 @@ tag:
   stage: release
   script:
     - DEBIAN_FRONTEND=noninteractive apt-get update
-    - DEBIAN_FRONTEND=noninteractive apt-get -y install git
+    - DEBIAN_FRONTEND=noninteractive apt-get -y install git curl
     - git config --global user.email "no-reply@nosadnile.net"
     - git config --global user.name "Automated CI"
-    - git remote add api-origin https://oauth2:${OAUTH2_TOKEN}@git.nosadnile.net/redstonewizard08/workspace-images
-    - git tag -a $CI_COMMIT_SHORT_SHA -m "CI Build at ci-$CI_COMMIT_SHORT_SHA"
-    - git push api-origin $CI_COMMIT_SHORT_SHA
+    - curl -X POST -H "PRIVATE-TOKEN: ${OAUTH2_TOKEN}" "https://git.nosadnile.net/api/v4/projects/61/repository/tags?tag_name=${CI_COMMIT_SHORT_SHA}&ref=${CI_COMMIT_BRANCH}"
 
 release:
   needs: [tag]
