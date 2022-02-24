@@ -1,7 +1,8 @@
 stages:
   - build
+  - release
 
-docker-build:
+docker:
   image: docker:stable
   stage: build
   variables:
@@ -19,3 +20,11 @@ docker-build:
     - docker buildx inspect $CI_COMMIT_REF_SLUG --bootstrap
     - docker buildx use $CI_COMMIT_REF_SLUG
     - sh build.sh
+
+release:
+  needs: [docker]
+  image: registry.gitlab.com/gitlab-org/release-cli:v0.1.0
+  script:
+    - gitlab-releaser create
+      --name="$CI_COMMIT_SHORT_SHA"
+      --description="This is an automated release.\n\nDocker images:\n`base`\n```shell\ndocker pull reg.git.nosadnile.net:443/redstonewizard08/workspace-images/base:$CI_COMMIT_SHORT_SHA```\n`openvscode`\n```shell\ndocker pull reg.git.nosadnile.net:443/redstonewizard08/workspace-images/openvscode:$CI_COMMIT_SHORT_SHA```\n`code-server`\n```shell\ndocker pull reg.git.nosadnile.net:443/redstonewizard08/workspace-images/codeserver:$CI_COMMIT_SHORT_SHA```\n`theia`\n```shell\ndocker pull reg.git.nosadnile.net:443/redstonewizard08/workspace-images/theia:$CI_COMMIT_SHORT_SHA```\n`headless-base`\n```shell\ndocker pull reg.git.nosadnile.net:443/redstonewizard08/workspace-images/headless-base:$CI_COMMIT_SHORT_SHA```"

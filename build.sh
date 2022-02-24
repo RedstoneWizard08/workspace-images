@@ -27,19 +27,19 @@ fi
 
 # Base Image
 cd base
-docker buildx build --platform linux/amd64 $ARGS -t reg.git.nosadnile.net:443/redstonewizard08/workspace-images/base:$TAG $CI_MULTI_BASE_TAG --push .
+docker buildx build --platform linux/arm64 $ARGS -t reg.git.nosadnile.net:443/redstonewizard08/workspace-images/base:$TAG $CI_MULTI_BASE_TAG --push .
 
 # OpenVSCode Image
 cd ../openvscode
-docker buildx build --platform linux/amd64 $ARGS -t reg.git.nosadnile.net:443/redstonewizard08/workspace-images/openvscode:$TAG $CI_MULTI_OPENVSCODE_TAG --push .
+docker buildx build --platform linux/arm64 $ARGS -t reg.git.nosadnile.net:443/redstonewizard08/workspace-images/openvscode:$TAG $CI_MULTI_OPENVSCODE_TAG --push .
 
 # Code-Server Image
 cd ../codeserver
-docker buildx build --platform linux/amd64 $ARGS -t reg.git.nosadnile.net:443/redstonewizard08/workspace-images/codeserver:$TAG $CI_MULTI_CODESERVER_TAG --push .
+docker buildx build --platform linux/arm64 $ARGS -t reg.git.nosadnile.net:443/redstonewizard08/workspace-images/codeserver:$TAG $CI_MULTI_CODESERVER_TAG --push .
 
 # Theia Image
 cd ../theia
-docker buildx build --platform linux/amd64 $ARGS -t reg.git.nosadnile.net:443/redstonewizard08/workspace-images/theia:$TAG $CI_MULTI_THEIA_TAG --push .
+docker buildx build --platform linux/arm64 $ARGS -t reg.git.nosadnile.net:443/redstonewizard08/workspace-images/theia:$TAG $CI_MULTI_THEIA_TAG --push .
 
 #
 #   Headless images without an IDE embedded in the container.
@@ -47,4 +47,4 @@ docker buildx build --platform linux/amd64 $ARGS -t reg.git.nosadnile.net:443/re
 
 # Theia Image
 cd ../headless-base
-docker buildx build --platform linux/amd64 $ARGS -t reg.git.nosadnile.net:443/redstonewizard08/workspace-images/headless-base:$TAG $CI_MULTI_HEADLESS_BASE_TAG --push .
+docker buildx build --platform linux/arm64 $ARGS -t reg.git.nosadnile.net:443/redstonewizard08/workspace-images/headless-base:$TAG $CI_MULTI_HEADLESS_BASE_TAG --push .
