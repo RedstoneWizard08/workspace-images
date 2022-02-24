@@ -22,7 +22,7 @@ stages:
 #    - sh build.sh
 
 release:
-  needs: [docker]
+  #needs: [docker]
   image: registry.gitlab.com/gitlab-org/release-cli:v0.1.0
   stage: release
   script:
