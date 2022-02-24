@@ -28,4 +28,5 @@ release:
   script:
     - release-cli create
       --name="$CI_COMMIT_SHORT_SHA"
+      --tag-name="$CI_COMMIT_TAG"
       --description="This is an automated release.\\n\\nDocker images:\\n\`base\`\\n\`\`\`shell\\ndocker pull reg.git.nosadnile.net:443/redstonewizard08/workspace-images/base:$CI_COMMIT_SHORT_SHA\`\`\`\\n\`openvscode\`\\n\`\`\`shell\\ndocker pull reg.git.nosadnile.net:443/redstonewizard08/workspace-images/openvscode:$CI_COMMIT_SHORT_SHA\`\`\`\\n\`code-server\`\\n\`\`\`shell\\ndocker pull reg.git.nosadnile.net:443/redstonewizard08/workspace-images/codeserver:$CI_COMMIT_SHORT_SHA\`\`\`\\n\`theia\`\\n\`\`\`shell\\ndocker pull reg.git.nosadnile.net:443/redstonewizard08/workspace-images/theia:$CI_COMMIT_SHORT_SHA\`\`\`\\n\`headless-base\`\\n\`\`\`shell\\ndocker pull reg.git.nosadnile.net:443/redstonewizard08/workspace-images/headless-base:$CI_COMMIT_SHORT_SHA\`\`\`"
