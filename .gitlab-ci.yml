@@ -23,7 +23,7 @@ stages:
 
 release:
   #needs: [docker]
-  image: registry.gitlab.com/gitlab-org/release-cli:v0.1.0
+  image: registry.gitlab.com/gitlab-org/release-cli
   stage: release
   script:
     - release-cli create
