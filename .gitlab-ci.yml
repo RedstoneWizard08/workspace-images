@@ -28,8 +28,8 @@ release:
   script:
     - DEBIAN_FRONTEND=noninteractive apt-get update
     - DEBIAN_FRONTEND=noninteractive apt-get -y install git curl bash
-    - git config --global user.email "no-reply@nosadnile.net"
-    - git config --global user.name "Automated CI"
+    - git config --global user.email "${OAUTH_EMAIL}"
+    - git config --global user.name "Jacob Sapoznikow"
     - >
       curl --request POST --header "PRIVATE-TOKEN: ${OAUTH2_TOKEN}" "https://git.nosadnile.net/api/v4/projects/61/repository/tags?tag_name=${CI_COMMIT_SHORT_SHA}&ref=${CI_COMMIT_BRANCH}"
     - >
