@@ -1,0 +1,39 @@
+{
+    "name": "ide",
+    "version": "1.0.0",
+    "main": "src/index.ts",
+    "license": "MIT",
+    "type": "commonjs",
+    "devDependencies": {
+        "@types/commander": "^2.12.2",
+        "@types/node": "^17.0.21",
+        "@types/yauzl": "^2.9.2",
+        "@typescript-eslint/eslint-plugin": "^5.14.0",
+        "@typescript-eslint/parser": "^5.14.0",
+        "eslint": "^8.10.0",
+        "nodemon": "^2.0.15",
+        "prettier": "^2.5.1",
+        "prettier-plugin-organize-imports": "^2.3.4",
+        "ts-node": "^10.7.0",
+        "typescript": "latest"
+    },
+    "dependencies": {
+        "chalk": "4",
+        "commander": "^9.0.0",
+        "fs": "^0.0.1-security",
+        "https": "^1.0.0",
+        "multi-progress-bars": "^4.2.3",
+        "path": "^0.12.7",
+        "readline": "^1.3.0",
+        "yauzl": "^2.10.0"
+    },
+    "packageManager": "yarn@3.2.0",
+    "scripts": {
+        "start": "yarn build && node dist/index.js",
+        "build": "tsc -p . && cp src/defaultextensions.json dist/defaultextensions.json",
+        "dev": "nodemon src/index.ts",
+        "format": "prettier --write .",
+        "lint": "eslint .",
+        "start:dev": "ts-node src/index.ts"
+    }
+}

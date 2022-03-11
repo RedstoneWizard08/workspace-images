@@ -1,0 +1,126 @@
+{
+    "$schema": "../extension.schema.json",
+    "registry": "official",
+    "extensions": [
+        {
+            "publisher": "RedstoneWizard08",
+            "id": "gitlab",
+            "version": "0.1.1"
+        },
+        {
+            "publisher": "GitHub",
+            "id": "remotehub",
+            "version": "0.27.2022031001"
+        },
+        {
+            "publisher": "GitHub",
+            "id": "codespaces",
+            "version": "1.5.5"
+        },
+        {
+            "publisher": "GitHub",
+            "id": "github-vscode-theme",
+            "version": "6.0.0"
+        },
+        {
+            "publisher": "GitHub",
+            "id": "vscode-pull-request-github",
+            "version": "0.39.2022031015"
+        },
+        {
+            "publisher": "ms-vscode",
+            "id": "vscode-github-issue-notebooks",
+            "version": "0.0.115"
+        },
+        {
+            "publisher": "Equinusocio",
+            "id": "vsc-community-material-theme",
+            "version": "1.4.4"
+        },
+        {
+            "publisher": "esbenp",
+            "id": "prettier-vscode",
+            "version": "9.3.0"
+        },
+        {
+            "publisher": "bierner",
+            "id": "markdown-preview-github-styles",
+            "version": "1.0.1"
+        },
+        {
+            "publisher": "cschleiden",
+            "id": "vscode-github-actions",
+            "version": "0.22.0"
+        },
+        {
+            "publisher": "dsznajder",
+            "id": "es7-react-js-snippets",
+            "version": "4.4.3"
+        },
+        {
+            "publisher": "burkeholland",
+            "id": "simple-react-snippets",
+            "version": "1.2.6"
+        },
+        {
+            "publisher": "infeng",
+            "id": "vscode-react-typescript",
+            "version": "1.3.1"
+        },
+        {
+            "publisher": "GitHub",
+            "id": "classroom",
+            "version": "0.0.3"
+        },
+        {
+            "publisher": "christian-kohler",
+            "id": "path-intellisense",
+            "version": "2.8.0"
+        },
+        {
+            "publisher": "ms-python",
+            "id": "python",
+            "version": "2022.3.10691005"
+        },
+        {
+            "publisher": "ms-python",
+            "id": "vscode-pylance",
+            "version": "2022.3.1"
+        },
+        {
+            "publisher": "donjayamanne",
+            "id": "python-environment-manager",
+            "version": "1.0.3"
+        },
+        {
+            "publisher": "DavidAnson",
+            "id": "vscode-markdownlint",
+            "version": "0.46.0"
+        },
+        {
+            "publisher": "bierner",
+            "id": "markdown-emoji",
+            "version": "0.2.1"
+        },
+        {
+            "publisher": "MS-vsliveshare",
+            "id": "vsliveshare",
+            "version": "1.0.5418"
+        },
+        {
+            "publisher": "codespaces-Contrib",
+            "id": "codeswing",
+            "version": "0.0.21"
+        },
+        {
+            "publisher": "hediet",
+            "id": "vscode-drawio",
+            "version": "1.6.4"
+        },
+        {
+            "publisher": "Tyriar",
+            "id": "luna-paint",
+            "version": "0.13.2"
+        }
+    ]
+}

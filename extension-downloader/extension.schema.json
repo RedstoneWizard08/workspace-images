@@ -1,0 +1,32 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "Extension": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "publisher": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "properties": {
+        "extensions": {
+            "items": {
+                "$ref": "#/definitions/Extension"
+            },
+            "type": "array"
+        },
+        "registry": {
+            "enum": ["official", "openvsx"],
+            "type": "string"
+        }
+    },
+    "type": "object"
+}

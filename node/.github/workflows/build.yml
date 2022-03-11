@@ -1,0 +1,220 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Build & Push Docker
+
+on: [push]
+
+jobs:
+  build:
+    name: Build and Push
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu
+            release: jammy
+            node: 17.7.1
+          - os: ubuntu
+            release: impish
+            node: 17.7.1
+          - os: ubuntu
+            release: hirsute
+            node: 17.7.1
+          - os: ubuntu
+            release: focal
+            node: 17.7.1
+          - os: ubuntu
+            release: bionic
+            node: 17.7.1
+          - os: debian
+            release: bullseye
+            node: 17.7.1
+          - os: debian
+            release: buster
+            node: 17.7.1
+          - os: debian
+            release: bullseye-slim
+            node: 17.7.1
+          - os: debian
+            release: buster-slim
+            node: 17.7.1
+          - os: alpine
+            release: 3.15
+            node: 17.7.1
+          - os: alpine
+            release: 3.14
+            node: 17.7.1
+          - os: alpine
+            release: 3.13
+            node: 17.7.1
+          - os: alpine
+            release: 3.12
+            node: 17.7.1
+          - os: ubuntu
+            release: jammy
+            node: 16.14.0
+          - os: ubuntu
+            release: impish
+            node: 16.14.0
+          - os: ubuntu
+            release: hirsute
+            node: 16.14.0
+          - os: ubuntu
+            release: focal
+            node: 16.14.0
+          - os: ubuntu
+            release: bionic
+            node: 16.14.0
+          - os: debian
+            release: bullseye
+            node: 16.14.0
+          - os: debian
+            release: buster
+            node: 16.14.0
+          - os: debian
+            release: bullseye-slim
+            node: 16.14.0
+          - os: debian
+            release: buster-slim
+            node: 16.14.0
+          - os: alpine
+            release: 3.15
+            node: 16.14.0
+          - os: alpine
+            release: 3.14
+            node: 16.14.0
+          - os: alpine
+            release: 3.13
+            node: 16.14.0
+          - os: alpine
+            release: 3.12
+            node: 16.14.0
+          - os: ubuntu
+            release: jammy
+            node: 14.19.0
+          - os: ubuntu
+            release: impish
+            node: 14.19.0
+          - os: ubuntu
+            release: hirsute
+            node: 14.19.0
+          - os: ubuntu
+            release: focal
+            node: 14.19.0
+          - os: ubuntu
+            release: bionic
+            node: 14.19.0
+          - os: debian
+            release: bullseye
+            node: 14.19.0
+          - os: debian
+            release: buster
+            node: 14.19.0
+          - os: debian
+            release: bullseye-slim
+            node: 14.19.0
+          - os: debian
+            release: buster-slim
+            node: 14.19.0
+          - os: alpine
+            release: 3.15
+            node: 14.19.0
+          - os: alpine
+            release: 3.14
+            node: 14.19.0
+          - os: alpine
+            release: 3.13
+            node: 14.19.0
+          - os: alpine
+            release: 3.12
+            node: 14.19.0
+          - os: ubuntu
+            release: jammy
+            node: 12.22.10
+          - os: ubuntu
+            release: impish
+            node: 12.22.10
+          - os: ubuntu
+            release: hirsute
+            node: 12.22.10
+          - os: ubuntu
+            release: focal
+            node: 12.22.10
+          - os: ubuntu
+            release: bionic
+            node: 12.22.10
+          - os: debian
+            release: bullseye
+            node: 12.22.10
+          - os: debian
+            release: buster
+            node: 12.22.10
+          - os: debian
+            release: bullseye-slim
+            node: 12.22.10
+          - os: debian
+            release: buster-slim
+            node: 12.22.10
+          - os: alpine
+            release: 3.15
+            node: 12.22.10
+          - os: alpine
+            release: 3.14
+            node: 12.22.10
+          - os: alpine
+            release: 3.13
+            node: 12.22.10
+          - os: alpine
+            release: 3.12
+            node: 12.22.10
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+      
+      - name: Log in to the Container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            redstonewizard/node
+          tags: |
+            ${{ matrix.node }}-${{ matrix.os }}-${{ matrix.release }}
+      
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/ppc64le,linux/s390x
+          build-args: |
+            OS=${{ matrix.os }}
+            OS_VERSION=${{ matrix.release }}
+            SET_NODE_VERSION=${{ matrix.node }}
